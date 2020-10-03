@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'Feeds.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -34,12 +38,20 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       Text('Home Page!', style: optionStyle),
       Image.asset('assets/Champion.png'),
     ]),
-    Column(children: <Widget>[
-      Text("Instagram.com/Champion", style: optionStyle),
-      Text("Twitter.com/Champion", style: optionStyle),
-      Text("Twitch.com/Champion", style: optionStyle),
-    ]),
+    //this calls the build function in Feeds.dart constructing this column
+    Feeds(),
   ];
+
+  /*
+  Column(children: <Widget>[
+      const SizedBox(height: 30), RaisedButton(
+        onPressed: () {
+          launch('https://www.instagram.com/champion/?hl=en');
+        },
+        child: const Text('Instagram', style: optionStyle)
+      ),
+    ]),
+   */
 
   void _onItemTapped(int index) {
     setState(() {
