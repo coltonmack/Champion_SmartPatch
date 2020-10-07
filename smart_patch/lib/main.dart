@@ -18,6 +18,11 @@ Future<void> main() async {
   firstCamera = cameras.first;
   runApp(MyApp());
 }
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'Feeds.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -43,10 +48,10 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
   static List<Widget> _widgetOptions = <Widget>[
-    CameraScreen(camera: firstCamera),
-    HomeScreen(),
-    LinksScreen()
-    ]; /*
+    Text(
+      'Camera Goes Here!',
+      style: optionStyle,
+    ),
     Column(children: <Widget>[
       Text('Home Page!', style: optionStyle),
       Image.asset('assets/Champion.png'),
@@ -68,6 +73,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Champion SmartPatch")),
       body: Center(
         child: _widgetOptions.elementAt(_screenIndex),
       ),
