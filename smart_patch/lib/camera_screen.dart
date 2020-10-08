@@ -179,7 +179,7 @@ class FirebaseResultsState extends State<FirebaseResults> {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
           debugPrint(word.text);
-          if (word.text.contains("C")) {
+          if (word.text.contains("C") || word.text.contains("c")) {
             setState(() {
               readTextResults = true;
             });
