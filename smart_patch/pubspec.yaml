@@ -31,10 +31,13 @@ dependencies:
   camera:
   path_provider:
   path:
+  firebase_ml_vision:
+  flutter_spinkit: "^4.1.2"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  cloud_firestore: ^0.13.0+1
   url_launcher: ^5.7.2
 
 # For information on the generic Dart part of this file, see the
@@ -54,6 +57,8 @@ flutter:
       - assets/fb_logo.png
       - assets/insta_logo.png
       - assets/twitter_logo.png
+      - assets/green_check.png
+      - assets/red_x.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
