@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+import 'camera_screen.dart';
+import 'home_screen.dart';
+import 'feeds_screen.dart';
 
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'Feeds.dart';
+var firstCamera;
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  // Ensure that plugin services are initialized so that `availableCameras()`
+  // can be called before `runApp()`
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  firstCamera = cameras.first;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,28 +43,10 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
   static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Camera Goes Here!',
-      style: optionStyle,
-    ),
-    Column(children: <Widget>[
-      Text('Home Page!', style: optionStyle),
-      Image.asset('assets/Champion.png'),
-    ]),
-    //this calls the build function in Feeds.dart constructing this column
-    Feeds(),
+    CameraScreen(camera: firstCamera),
+    HomeScreen(),
+    FeedsScreen(),
   ];
-
-  /*
-  Column(children: <Widget>[
-      const SizedBox(height: 30), RaisedButton(
-        onPressed: () {
-          launch('https://www.instagram.com/champion/?hl=en');
-        },
-        child: const Text('Instagram', style: optionStyle)
-      ),
-    ]),
-   */
 
   void _onItemTapped(int index) {
     setState(() {
@@ -62,7 +57,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Champion SmartPatch")),
       body: Center(
         child: _widgetOptions.elementAt(_screenIndex),
       ),
