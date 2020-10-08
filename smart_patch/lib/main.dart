@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'camera_screen.dart';
 import 'home_screen.dart';
-import 'links_screen.dart';
+import 'feeds_screen.dart';
 
 var firstCamera;
 
-Future<void> main() async {
+Future<void> mains() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +18,6 @@ Future<void> main() async {
   firstCamera = cameras.first;
   runApp(MyApp());
 }
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'Feeds.dart';
-
-void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -48,21 +43,10 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
   static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Camera Goes Here!',
-      style: optionStyle,
-    ),
-    Column(children: <Widget>[
-      Text('Home Page!', style: optionStyle),
-      Image.asset('assets/Champion.png'),
-    ]),
-    Column(children: <Widget>[
-      Text("Instagram.com/Champion", style: optionStyle),
-      Text("Twitter.com/Champion", style: optionStyle),
-      Text("Twitch.com/Champion", style: optionStyle),
-    ]),
+    CameraScreen(),
+    HomeScreen(),
+    FeedsScreen(),
   ];
-  */
 
   void _onItemTapped(int index) {
     setState(() {
@@ -73,7 +57,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Champion SmartPatch")),
       body: Center(
         child: _widgetOptions.elementAt(_screenIndex),
       ),
