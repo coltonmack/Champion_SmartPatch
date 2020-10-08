@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class CameraScreen extends StatefulWidget {
@@ -116,7 +118,77 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: Text('SmartCapture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Column(children: <Widget>[
+        Image.file(
+          File(imagePath),
+          width: 300,
+          height: 300,
+        ),
+        FirebaseResults(imagePath: imagePath)
+      ]),
     );
+  }
+}
+
+class FirebaseResults extends StatefulWidget {
+  final String imagePath;
+
+  const FirebaseResults({Key key, this.imagePath}) : super(key: key);
+
+  @override
+  FirebaseResultsState createState() => FirebaseResultsState();
+}
+
+class FirebaseResultsState extends State<FirebaseResults> {
+  bool isImageLoaded = false;
+  bool readTextResults = false;
+
+  @override
+  void initState() {
+    readImage();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 100,
+        height: 100,
+        child: isImageLoaded
+            ? Container(
+                child: readTextResults
+                    ? Image.asset(
+                        'assets/green_check.png',
+                        width: 100,
+                        height: 100,
+                      )
+                    : Image.asset(
+                        'assets/red_x.png',
+                        width: 100,
+                        height: 100,
+                      ))
+            : SpinKitFadingCircle(color: Colors.black, size: 100));
+  }
+
+  Future readImage() async {
+    FirebaseVisionImage smartImage =
+        FirebaseVisionImage.fromFile(File(widget.imagePath));
+    TextRecognizer recognizeText = FirebaseVision.instance.textRecognizer();
+    VisionText readText = await recognizeText.processImage(smartImage);
+
+    for (TextBlock block in readText.blocks) {
+      for (TextLine line in block.lines) {
+        for (TextElement word in line.elements) {
+          debugPrint(word.text);
+          if (word.text.contains("C")) {
+            setState(() {
+              readTextResults = true;
+            });
+          }
+        }
+      }
+    }
+    setState(() {
+      isImageLoaded = true;
+    });
   }
 }
