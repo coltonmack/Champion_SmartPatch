@@ -6,7 +6,7 @@ import 'feeds_screen.dart';
 
 var firstCamera;
 
-Future<void> mains() async {
+Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +43,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
   static List<Widget> _widgetOptions = <Widget>[
-    CameraScreen(),
+    CameraScreen(camera: firstCamera),
     HomeScreen(),
     FeedsScreen(),
   ];
