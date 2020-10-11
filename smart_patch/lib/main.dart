@@ -4,10 +4,6 @@ import 'camera_screen.dart';
 import 'home_screen.dart';
 import 'feeds_screen.dart';
 
-<<<<<<< HEAD
-void main() => runApp(MyApp());
-////////////////////////////////////////////////////////
-=======
 var firstCamera;
 
 Future<void> main() async {
@@ -23,7 +19,6 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
->>>>>>> master
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,14 +28,14 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-/////////////////////////////////////////////////////
+
 class MyHomeScreen extends StatefulWidget {
   MyHomeScreen({Key key}) : super(key: key);
 
   @override
   _MyHomeScreenState createState() => _MyHomeScreenState();
 }
-//////////////////////////////////////////////////////
+
 class _MyHomeScreenState extends State<MyHomeScreen> {
   int _screenIndex = 0;
 
