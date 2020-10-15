@@ -10,7 +10,6 @@ class FeedsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Feeds")),
       body: Column(children: <Widget>[
         GestureDetector(
             onTap: () {
