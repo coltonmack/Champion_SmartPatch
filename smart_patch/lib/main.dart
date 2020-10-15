@@ -48,6 +48,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 		FeedsScreen(),
 	];
 
+<<<<<<< HEAD
 	void _onItemTapped(int index) {
 		setState(() {
 		_screenIndex = index;
@@ -82,3 +83,46 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 		);
 	}
 }
+=======
+  static List<String> _titleNames = <String>[
+    "Scan Patch",
+    "Home Page",
+    "Feeds",
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _screenIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(_titleNames.elementAt(_screenIndex))),
+      body: Center(
+        child: _widgetOptions.elementAt(_screenIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            title: Text('Scan'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.cast_connected),
+            title: Text('Feeds'),
+          ),
+        ],
+        currentIndex: _screenIndex,
+        selectedItemColor: Colors.red,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+>>>>>>> master

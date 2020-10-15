@@ -51,7 +51,6 @@ class CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Take a picture')),
       // Wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner
       // until the controller has finished initializing.
@@ -179,7 +178,7 @@ class FirebaseResultsState extends State<FirebaseResults> {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
           debugPrint(word.text);
-          if (word.text.contains("C")) {
+          if (word.text.contains("C") || word.text.contains("c")) {
             setState(() {
               readTextResults = true;
             });
