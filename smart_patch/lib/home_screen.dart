@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
         Image.asset('assets/Champion.png')
       ]),
 	  /**********************adding drawer to home page only for now******************/
-		drawer: Drawer(								//endDrawer puts it on the right
+		/*drawer: Drawer(								//endDrawer puts it on the right
 			child: ListView(
 				padding: EdgeInsets.zero,
 				children: const <Widget>[
@@ -32,14 +32,9 @@ class HomeScreen extends StatelessWidget {
 					ListTile(
 						leading: Icon(Icons.settings),
 						title: Text('Settings'),
-						/*onTap: (){
-							//
-							Navigator.pop(context); 
-						},*/
-					),
 				],
 			),
-		),
+		),*/
     );
   }
 }
