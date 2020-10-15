@@ -48,6 +48,12 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     FeedsScreen(),
   ];
 
+  static List<String> _titleNames = <String>[
+    "Scan Patch",
+    "Home Page",
+    "Feeds",
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _screenIndex = index;
@@ -57,6 +63,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(_titleNames.elementAt(_screenIndex))),
       body: Center(
         child: _widgetOptions.elementAt(_screenIndex),
       ),
