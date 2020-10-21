@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'camera_screen.dart';
 import 'home_screen.dart';
 import 'feeds_screen.dart';
+import 'website_screen.dart';
 
 var firstCamera;
 
@@ -49,11 +50,13 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 	static const TextStyle optionStyle =
 	  TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
-	static List<Widget> _widgetOptions = <Widget>[
-	CameraScreen(camera: firstCamera),
-	HomeScreen(),
-	FeedsScreen(),
-	];
+
+  static List<Widget> _widgetOptions = <Widget>[
+    CameraScreen(camera: firstCamera),
+    HomeScreen(),
+    /*FeedsScreen(),*/
+    WebsiteScreen(),
+  ];
 
 	static List<String> _titleNames = <String>[
 	"Scan Patch",
