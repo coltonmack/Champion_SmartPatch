@@ -29,36 +29,43 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomeScreen extends StatefulWidget {
-  MyHomeScreen({Key key}) : super(key: key);
+class MyHomeScreen extends StatefulWidget {	
+	MyHomeScreen({Key key}) : super(key: key);
 
-  @override
-  _MyHomeScreenState createState() => _MyHomeScreenState();
+	@override
+	_MyHomeScreenState createState() => _MyHomeScreenState();
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
-  int _screenIndex = 0;
+	//list interests here
+	bool interestSports;
+	bool interestGaming;
+	bool interestMusic;
+	bool interestFashion;
+	
+	
+	int _screenIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
+	static const TextStyle optionStyle =
+	  TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
-  static List<Widget> _widgetOptions = <Widget>[
-    CameraScreen(camera: firstCamera),
-    HomeScreen(),
-    FeedsScreen(),
-  ];
+	static List<Widget> _widgetOptions = <Widget>[
+	CameraScreen(camera: firstCamera),
+	HomeScreen(),
+	FeedsScreen(),
+	];
 
-  static List<String> _titleNames = <String>[
-    "Scan Patch",
-    "Home Page",
-    "Feeds",
-  ];
+	static List<String> _titleNames = <String>[
+	"Scan Patch",
+	"Home Page",
+	"Feeds",
+	];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _screenIndex = index;
-    });
-  }
+	void _onItemTapped(int index) {
+	setState(() {
+	  _screenIndex = index;
+	});
+	}
 
   @override
   Widget build(BuildContext context) {
@@ -86,31 +93,60 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 			selectedItemColor: Colors.red,
 			onTap: _onItemTapped,
 		),
-		
+		//menu drawer
 		drawer: Drawer(								//endDrawer puts it on the right
 			child: ListView(
 				padding: EdgeInsets.zero,
-				children: const <Widget>[
+				children:  <Widget>[
 					DrawerHeader(
 						decoration: BoxDecoration(
 							color: Colors.blue,
 						),
 						child: Text(
-							'Menu',
+							'Interests',
 							style: TextStyle(
 							  color: Colors.white,
 							  fontSize: 24,
 							),
 						),
 					),
-					ListTile(
-						leading: Icon(Icons.account_circle),
-						title: Text('Account'),						//need to add stuff here
+					/*******************Checkboxes here********************/
+					CheckboxListTile(
+						title: const Text('Sports'),
+						value: interestSports != true,
+						onChanged: (bool value) {
+							setState(() {
+							interestSports = value ? false : true;
+							});
+						},
 					),
-					ListTile(
-						leading: Icon(Icons.settings),
-						title: Text('Settings'),
+					CheckboxListTile(
+						title: const Text('Gaming'),
+						value: interestGaming != true,
+						onChanged: (bool value) {
+							setState(() {
+							interestGaming = value ? false : true;
+							});
+						},
 					),
+					CheckboxListTile(
+						title: const Text('Music'),
+						value: interestMusic != true,
+						onChanged: (bool value) {
+							setState(() {
+							interestMusic = value ? false : true;
+							});
+						},
+					),
+					CheckboxListTile(
+						title: const Text('Fashion'),
+						value: interestFashion != true,
+						onChanged: (bool value) {
+							setState(() {
+							interestFashion = value ? false : true;
+							});
+						},
+					),			
 				],
 			),
 		),
