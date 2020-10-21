@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'camera_screen.dart';
 import 'home_screen.dart';
 import 'feeds_screen.dart';
+import 'website_screen.dart';
 
 var firstCamera;
 
@@ -45,7 +46,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     CameraScreen(camera: firstCamera),
     HomeScreen(),
-    FeedsScreen(),
+    /*FeedsScreen(),*/
+    WebsiteScreen(),
   ];
 
   static List<String> _titleNames = <String>[
