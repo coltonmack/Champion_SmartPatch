@@ -34,6 +34,7 @@ dependencies:
   path:
   firebase_ml_vision:
   flutter_spinkit: "^4.1.2"
+  provider: ^4.3.2+2
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,7 @@ flutter:
       - assets/twitter_logo.png
       - assets/green_check.png
       - assets/red_x.png
+      - assets/hashtag.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

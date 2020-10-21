@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FeedsScreen extends StatelessWidget {
@@ -10,7 +9,6 @@ class FeedsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Feeds")),
       body: Column(children: <Widget>[
         GestureDetector(
             onTap: () {
