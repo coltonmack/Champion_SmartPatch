@@ -8,11 +8,11 @@ class FirebaseServices {
     FirebaseServices(this.collectionName);
 
     Stream<List<TweetModel>> getTweetList() {
-      return _fireStoreDataBase.collection(collectionName)
-          .snapshots()
-          .map((snapShot) =>
-          snapShot.documents
-              .map((document) => TweetModel.fromJson(document.data))
-              .toList());
+        return _fireStoreDataBase.collection(collectionName)
+            .snapshots()
+            .map((snapShot) =>
+            snapShot.documents
+                .map((document) => TweetModel.fromJson(document.data))
+                .toList());
     }
 }
