@@ -59,6 +59,7 @@ class HomeScreenUI extends StatelessWidget {
           bottom: 20,
           child: rectBG(),
         ),
+
         //homescreen bg rectangle
         Positioned(
           left: 20,
@@ -73,14 +74,6 @@ class HomeScreenUI extends StatelessWidget {
           right: 20,
           bottom: 375,
           child: rectCurvedBG(),
-        ),
-        //position feeds
-        Positioned(
-          left: 255,
-          top: 190,
-          right: 10,
-          bottom: 10,
-          child: FeedsScreen(),
         ),
         //position home screen
         Positioned(
@@ -97,6 +90,14 @@ class HomeScreenUI extends StatelessWidget {
           right: 10,
           bottom: 10,
           child: GetPromo(),
+        ),
+        //position feeds
+        Positioned(
+          left: 255,
+          top: 190,
+          right: 10,
+          bottom: 10,
+          child: FeedsScreen(),
         ),
       ],
     );
