@@ -9,16 +9,37 @@ class FeedsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Column(children: <Widget>[
+        GestureDetector(
+            onTap: () {
+              launch('https://www.twitch.tv/');
+            },
+            child: Image.asset(
+              'assets/twitch_logo.png',
+              fit: BoxFit.fill,
+              width: 75,
+              height: 75,
+            )),
         GestureDetector(
             onTap: () {
               launch('https://www.instagram.com/champion/?hl=en');
             },
             child: Image.asset(
-              'assets/insta_logo.png',
-              fit: BoxFit.cover,
+              'assets/insta_logo_1.png',
+              fit: BoxFit.fill,
               width: 100,
               height: 100,
+            )),
+        GestureDetector(
+            onTap: () {
+              launch('https://www.youtube.com/');
+            },
+            child: Image.asset(
+              'assets/yt_logo.png',
+              fit: BoxFit.fill,
+              width: 95,
+              height: 75,
             )),
         GestureDetector(
             onTap: () {
@@ -26,20 +47,9 @@ class FeedsScreen extends StatelessWidget {
             },
             child: Image.asset(
               'assets/fb_logo.png',
-              fit: BoxFit.cover,
-              width: 100,
-              height: 100,
-            )),
-        GestureDetector(
-            onTap: () {
-              launch(
-                  'https://twitter.com/ChampionUSA?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor');
-            },
-            child: Image.asset(
-              'assets/twitter_logo.png',
-              fit: BoxFit.cover,
-              width: 100,
-              height: 100,
+              fit: BoxFit.fill,
+              width: 80,
+              height: 80,
             )),
       ]),
     );

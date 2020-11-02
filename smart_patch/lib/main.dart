@@ -4,6 +4,7 @@ import 'camera_screen.dart';
 import 'home_screen.dart';
 import 'feeds_screen.dart';
 import 'website_screen.dart';
+import 'home_screen_ui.dart';
 
 var firstCamera;
 
@@ -53,7 +54,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   static List<Widget> _widgetOptions = <Widget>[
     CameraScreen(camera: firstCamera),
-    HomeScreen(),
+		HomeScreenUI(),
+    /*HomeScreen(),*/
     /*FeedsScreen(),*/
     WebsiteScreen(),
   ];

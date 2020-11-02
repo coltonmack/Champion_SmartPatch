@@ -11,6 +11,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Column(children: <Widget>[
         GestureDetector(
             onTap: () {
@@ -46,3 +47,5 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
