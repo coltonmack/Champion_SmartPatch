@@ -1,91 +1,54 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'camera_screen.dart';
-import 'home_screen.dart';
-import 'feeds_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-var firstCamera;
-
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-
-  // Get a specific camera from the list of available cameras.
-  firstCamera = cameras.first;
-  runApp(MyApp());
+void main() {
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Champion SmartPatch',
-      home: MyHomeScreen(),
-    );
+class App extends StatefulWidget {
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  // Set default `_initialized` and `_error` state to false
+  bool _initialized = false;
+  bool _error = false;
+
+  // Define an async function to initialize FlutterFire
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+      });
+    } catch(e) {
+      // Set `_error` state to true if Firebase initialization fails
+      setState(() {
+        _error = true;
+      });
+    }
   }
-}
-
-class MyHomeScreen extends StatefulWidget {
-  MyHomeScreen({Key key}) : super(key: key);
 
   @override
-  _MyHomeScreenState createState() => _MyHomeScreenState();
-}
-
-class _MyHomeScreenState extends State<MyHomeScreen> {
-  int _screenIndex = 0;
-
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
-
-  static List<Widget> _widgetOptions = <Widget>[
-    CameraScreen(camera: firstCamera),
-    HomeScreen(),
-    FeedsScreen(),
-  ];
-
-  static List<String> _titleNames = <String>[
-    "Scan Patch",
-    "Home Page",
-    "Feeds",
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _screenIndex = index;
-    });
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(_titleNames.elementAt(_screenIndex))),
-      body: Center(
-        child: _widgetOptions.elementAt(_screenIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            title: Text('Scan'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cast_connected),
-            title: Text('Feeds'),
-          ),
-        ],
-        currentIndex: _screenIndex,
-        selectedItemColor: Colors.red,
-        onTap: _onItemTapped,
-      ),
-    );
+    // Show error message if initialization failed
+    if(_error) {
+      return SomethingWentWrong();
+    }
+
+    // Show a loader until FlutterFire is initialized
+    if (!_initialized) {
+      return Loading();
+    }
+
+    return MyAwesomeApp();
   }
 }
