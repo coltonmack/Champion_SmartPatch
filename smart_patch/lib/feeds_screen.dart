@@ -8,9 +8,8 @@ class FeedsScreen extends StatelessWidget {
   //build function
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Column(children: <Widget>[
+    return Container(
+      child: Column(children: <Widget>[
         GestureDetector(
             onTap: () {
               launch('https://www.twitch.tv/');

@@ -1,47 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'camera_screen.dart';
-import 'home_screen.dart';
-import 'feeds_screen.dart';
-
-var firstCamera;
+import 'website_screen.dart';
+import 'home_screen_ui.dart';
+import "login_screen.dart";
 
 class mainApp extends StatefulWidget {
+  var camera;
+  FirebaseAuth auth;
+
+  mainApp({Key key, this.camera, this.auth}) : super(key: key);
 
   @override
   mainAppState createState() => mainAppState();
 }
 
 class mainAppState extends State<mainApp> {
-
-  @override
-  void initState() {
-    initializeCamera();
-    super.initState();
-  }
-
-  Future initializeCamera() async {
-    // Ensure that plugin services are initialized so that `availableCameras()`
-    // can be called before `runApp()`
-    WidgetsFlutterBinding.ensureInitialized();
-
-    // Obtain a list of the available cameras on the device.
-    final cameras = await availableCameras();
-
-    // Get a specific camera from the list of available cameras.
-    firstCamera = cameras.first;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomeScreen(),
+      home: MyHomeScreen(camera: widget.camera, auth: widget.auth),
     );
   }
 }
 
 class MyHomeScreen extends StatefulWidget {
-  MyHomeScreen({Key key}) : super(key: key);
+  var camera;
+  var auth;
+
+  MyHomeScreen({Key key, this.camera, this.auth}) : super(key: key);
 
   @override
   _MyHomeScreenState createState() => _MyHomeScreenState();
@@ -49,15 +37,16 @@ class MyHomeScreen extends StatefulWidget {
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
   int _screenIndex = 0;
+  int login_state = 0;
+
+  //list interests here
+  bool interestSports;
+  bool interestGaming;
+  bool interestMusic;
+  bool interestFashion;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
-
-  static List<Widget> _widgetOptions = <Widget>[
-    CameraScreen(camera: firstCamera),
-    HomeScreen(),
-    FeedsScreen(),
-  ];
 
   static List<String> _titleNames = <String>[
     "Scan Patch",
@@ -71,32 +60,122 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     });
   }
 
+  Widget BuildWidget() {
+    if (_screenIndex == 0) return CameraScreen(camera: widget.camera);
+    if (_screenIndex == 1) return HomeScreenUI();
+    if (_screenIndex == 2) return WebsiteScreen();
+  }
+
+  void signOut() async {
+    await widget.auth.signOut();
+    setState(() {
+      login_state = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(_titleNames.elementAt(_screenIndex))),
-      body: Center(
-        child: _widgetOptions.elementAt(_screenIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            title: Text('Scan'),
+    if (login_state == 0) {
+      return Scaffold(
+        backgroundColor: Color.fromARGB(150, 1, 20, 122),
+        appBar: AppBar(
+            title: Text(_titleNames.elementAt(_screenIndex)),
+            backgroundColor: Color.fromARGB(150, 1, 20, 122)),
+        body: Center(
+          child: BuildWidget(),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color.fromARGB(150, 1, 20, 122),
+          unselectedItemColor: Colors.white,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.camera_alt),
+              label: 'Scan',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.cast_connected),
+              label: 'Web',
+            ),
+          ],
+          currentIndex: _screenIndex,
+          selectedItemColor: Colors.red,
+          onTap: _onItemTapped,
+        ),
+        //menu drawer
+        drawer: Drawer(
+          //endDrawer puts it on the right
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'Interests',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              /*******************Checkboxes here********************/
+              CheckboxListTile(
+                title: const Text('Sports'),
+                value: interestSports != true,
+                onChanged: (bool value) {
+                  setState(() {
+                    interestSports = value ? false : true;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: const Text('Gaming'),
+                value: interestGaming != true,
+                onChanged: (bool value) {
+                  setState(() {
+                    interestGaming = value ? false : true;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: const Text('Music'),
+                value: interestMusic != true,
+                onChanged: (bool value) {
+                  setState(() {
+                    interestMusic = value ? false : true;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: const Text('Fashion'),
+                value: interestFashion != true,
+                onChanged: (bool value) {
+                  setState(() {
+                    interestFashion = value ? false : true;
+                  });
+                },
+              ),
+              MaterialButton(
+                  onPressed: () {
+                    signOut();
+                  },
+                  textColor: Colors.white,
+                  padding: const EdgeInsets.all(0.0),
+                  child: Container(
+                      decoration: const BoxDecoration(color: Colors.red),
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text('Sign Out', style: TextStyle(fontSize: 20)))),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cast_connected),
-            title: Text('Feeds'),
-          ),
-        ],
-        currentIndex: _screenIndex,
-        selectedItemColor: Colors.red,
-        onTap: _onItemTapped,
-      ),
-    );
+        ),
+      );
+    } else {
+      Navigator.of(context, rootNavigator: true).pop();
+    }
   }
 }

@@ -24,15 +24,12 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^5.7.2
-<<<<<<< HEAD
   firebase_core: ^0.5.1
   firebase_auth: ^0.18.2
   cloud_firestore: ^0.14.2
   firebase_ml_vision:
   flutter_spinkit: ^4.1.2
   provider: ^4.3.2+2
-=======
->>>>>>> master
   webview_flutter: ^0.3.3
 
   # The following adds the Cupertino Icons font to your application.
@@ -66,14 +63,11 @@ flutter:
       - assets/green_check.png
       - assets/red_x.png
       - assets/hashtag.jpg
-<<<<<<< HEAD
       - assets/Champion_text.png
-=======
       - assets/champ_trans_logo.png
       - assets/insta_logo_1.png
       - assets/twitch_logo.png
       - assets/yt_logo.png
->>>>>>> master
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

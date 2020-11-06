@@ -4,13 +4,33 @@ import 'package:smart_patch/main_application.dart';
 import 'main_application.dart';
 
 class LoginScreen extends StatefulWidget {
+  var camera;
+  LoginScreen(this.camera);
   LoginScreenState createState() => LoginScreenState();
 }
 
 class LoginScreenState extends State<LoginScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  int login = 0;
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
+
+  LoginScreenState() {
+    auth.authStateChanges().listen((User user) {
+      print(auth.currentUser);
+      if (user == null) {
+        print('User is currently signed out!');
+        setState(() {
+          login = 0;
+        });
+      } else {
+        print('User is signed in!');
+        setState(() {
+          login = 1;
+        });
+      }
+    });
+  }
 
   void attemptLogin(BuildContext context) async {
     if (usernameController.text.length == 0) {
@@ -22,7 +42,6 @@ class LoginScreenState extends State<LoginScreen> {
       return;
     } else {
       try {
-        print(auth.currentUser);
         UserCredential userCredential = await auth
             .signInWithEmailAndPassword(
                 email: usernameController.text,
@@ -37,13 +56,6 @@ class LoginScreenState extends State<LoginScreen> {
           notifyBadLogin(context, 3);
         }
       }
-      auth.authStateChanges().listen((User user) {
-        if (user == null) {
-          print('User is currently signed out!');
-        } else {
-          print('User is signed in!');
-        }
-      });
     }
   }
 
@@ -86,12 +98,12 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    if (auth.currentUser == null) {
+    if (login == 0) {
       return MaterialApp(
           title: 'Champion SmartPatch',
           home: Scaffold(
               backgroundColor: Color.fromARGB(150, 1, 20, 122),
-              appBar: AppBar(title: Text("Sign In")),
+              appBar: AppBar(title: Text("Sign In"),  backgroundColor: Color.fromARGB(150, 1, 20, 122)),
               body: Builder(
                 builder: (context) => ListView(children: <Widget>[
                   Padding(
@@ -191,7 +203,7 @@ class LoginScreenState extends State<LoginScreen> {
                 ]),
               )));
     } else {
-      return mainApp();
+      return mainApp(auth: auth, camera: widget.camera);
     }
   }
 }
