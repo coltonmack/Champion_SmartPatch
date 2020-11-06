@@ -6,24 +6,35 @@ import 'feeds_screen.dart';
 
 var firstCamera;
 
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
+class mainApp extends StatefulWidget {
 
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-
-  // Get a specific camera from the list of available cameras.
-  firstCamera = cameras.first;
-  runApp(MyApp());
+  @override
+  mainAppState createState() => mainAppState();
 }
 
-class MyApp extends StatelessWidget {
+class mainAppState extends State<mainApp> {
+
+  @override
+  void initState() {
+    initializeCamera();
+    super.initState();
+  }
+
+  Future initializeCamera() async {
+    // Ensure that plugin services are initialized so that `availableCameras()`
+    // can be called before `runApp()`
+    WidgetsFlutterBinding.ensureInitialized();
+
+    // Obtain a list of the available cameras on the device.
+    final cameras = await availableCameras();
+
+    // Get a specific camera from the list of available cameras.
+    firstCamera = cameras.first;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Champion SmartPatch',
       home: MyHomeScreen(),
     );
   }

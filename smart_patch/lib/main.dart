@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'login_screen.dart';
 
 void main() {
   runApp(App());
@@ -23,7 +24,7 @@ class _AppState extends State<App> {
       setState(() {
         _initialized = true;
       });
-    } catch(e) {
+    } catch (e) {
       // Set `_error` state to true if Firebase initialization fails
       setState(() {
         _error = true;
@@ -40,15 +41,16 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     // Show error message if initialization failed
-    if(_error) {
-      return SomethingWentWrong();
+    if (_error) {
+      return Text('Oh no, application failed. Try restarting!');
     }
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      return Loading();
+      return MaterialApp(
+          home: SpinKitFadingCircle(color: Colors.black, size: 100));
     }
 
-    return MyAwesomeApp();
+    return LoginScreen();
   }
 }

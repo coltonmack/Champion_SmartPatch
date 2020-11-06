@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_patch/firebase_services.dart';
 import 'package:smart_patch/tweet_model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadTweets extends StatefulWidget {
   final String collectionName;
@@ -38,7 +39,7 @@ class ViewTweetPage extends StatelessWidget {
     List tweetList = Provider.of<List<TweetModel>>(context);
 
     return tweetList.isEmpty
-        ? Center(child: Text('Empty'))
+        ? SpinKitFadingCircle(color: Colors.black, size: 100)
         : Scaffold(
             body: ListView.builder(
               itemCount: tweetList.length,

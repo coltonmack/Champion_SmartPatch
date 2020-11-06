@@ -24,6 +24,13 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^5.7.2
+  firebase_core: ^0.5.1
+  firebase_auth: ^0.18.2
+  cloud_firestore: ^0.14.2
+  firebase_ml_vision:
+  flutter_spinkit: ^4.1.2
+  provider: ^4.3.2+2
+  webview_flutter: ^0.3.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -31,15 +38,10 @@ dependencies:
   camera:
   path_provider:
   path:
-  firebase_ml_vision:
-  flutter_spinkit: "^4.1.2"
-  provider: ^4.3.2+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  cloud_firestore: ^0.13.0+1
-  url_launcher: ^5.7.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,6 +63,7 @@ flutter:
       - assets/green_check.png
       - assets/red_x.png
       - assets/hashtag.jpg
+      - assets/Champion_text.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
