@@ -117,13 +117,12 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: Text('SmartCapture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Column(children: <Widget>[
-        Image.file(
-          File(imagePath),
-          width: 300,
-          height: 300,
-        ),
-        FirebaseResults(imagePath: imagePath)
+      body: Stack(alignment: Alignment.center, children: <Widget>[
+        Positioned(
+            top: 0,
+            child: Container(
+                child: Image.file(File(imagePath), fit: BoxFit.fitHeight))),
+        Positioned(bottom: 10, child: FirebaseResults(imagePath: imagePath))
       ]),
     );
   }
@@ -149,9 +148,10 @@ class FirebaseResultsState extends State<FirebaseResults> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: 100,
-        height: 100,
+    return Card(
+        elevation: 8,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: isImageLoaded
             ? Container(
                 child: readTextResults

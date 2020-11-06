@@ -10,9 +10,8 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Column(children: <Widget>[
+    return Container(
+      child: Column(children: <Widget>[
         GestureDetector(
             onTap: () {
               Navigator.push(
@@ -47,5 +46,3 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
