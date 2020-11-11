@@ -5,6 +5,7 @@ import 'camera_screen.dart';
 import 'website_screen.dart';
 import 'home_screen_ui.dart';
 import "login_screen.dart";
+import "settings_screens.dart";
 
 class mainApp extends StatefulWidget {
   var camera;
@@ -116,50 +117,37 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                   color: Colors.blue,
                 ),
                 child: Text(
-                  'Interests',
+                  'Settings',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                   ),
                 ),
               ),
-              /*******************Checkboxes here********************/
-              CheckboxListTile(
-                title: const Text('Sports'),
-                value: interestSports != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestSports = value ? false : true;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Gaming'),
-                value: interestGaming != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestGaming = value ? false : true;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Music'),
-                value: interestMusic != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestMusic = value ? false : true;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Fashion'),
-                value: interestFashion != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestFashion = value ? false : true;
-                  });
-                },
-              ),
+			  ListTile(
+				title: Text('My Account'),
+				onTap:(){
+					Navigator.push(
+						context,
+						MaterialPageRoute(
+							builder: (context) => AccountScreen(),
+						),
+					);
+					//Navigator.pop(context);
+				},
+			  ),
+			  ListTile(
+				title: Text('Preferences'),
+				onTap:(){
+					Navigator.push(
+						context,
+						MaterialPageRoute(
+							builder: (context) => PreferencesScreen(),
+						),
+					);
+					//Navigator.pop(context);
+				},
+			  ),
               MaterialButton(
                   onPressed: () {
                     signOut();
@@ -179,3 +167,5 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     }
   }
 }
+
+
