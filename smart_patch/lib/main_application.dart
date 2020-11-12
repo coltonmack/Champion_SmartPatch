@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'camera_screen.dart';
 import 'website_screen.dart';
 import 'home_screen_ui.dart';
-import "login_screen.dart";
+import "settings_screen.dart";
 
 class mainApp extends StatefulWidget {
   var camera;
@@ -49,9 +48,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
 
   static List<String> _titleNames = <String>[
-    "Scan Patch",
-    "Home Page",
-    "Feeds",
+    "Scan for Rewards!",
+    "Champion Connect",
+    "Be a Champion",
   ];
 
   void _onItemTapped(int index) {
@@ -113,53 +112,54 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Color.fromARGB(150, 1, 20, 122),
                 ),
                 child: Text(
-                  'Interests',
+                  'Settings',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                   ),
                 ),
               ),
-              /*******************Checkboxes here********************/
-              CheckboxListTile(
-                title: const Text('Sports'),
-                value: interestSports != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestSports = value ? false : true;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Gaming'),
-                value: interestGaming != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestGaming = value ? false : true;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Music'),
-                value: interestMusic != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestMusic = value ? false : true;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Fashion'),
-                value: interestFashion != true,
-                onChanged: (bool value) {
-                  setState(() {
-                    interestFashion = value ? false : true;
-                  });
-                },
-              ),
+              Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 4, left: 30, right: 30),
+                  child: ListTile(
+                    tileColor: Color.fromARGB(150, 1, 20, 122),
+                    title: Text('My Account',
+                        style: TextStyle(
+                          color: Colors.white,
+                        )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AccountScreen(),
+                        ),
+                      );
+                      //Navigator.pop(context);
+                    },
+                  )),
+              Padding(
+                  padding:
+                      EdgeInsets.only(top: 8, bottom: 30, left: 30, right: 30),
+                  child: ListTile(
+                    tileColor: Color.fromARGB(150, 1, 20, 122),
+                    title: Text('Preferences',
+                        style: TextStyle(
+                          color: Colors.white,
+                        )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PreferencesScreen(widget.auth),
+                        ),
+                      );
+                      //Navigator.pop(context);
+                    },
+                  )),
               MaterialButton(
                   onPressed: () {
                     signOut();
