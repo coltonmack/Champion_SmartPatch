@@ -39,19 +39,42 @@ class HomeScreenUI extends StatelessWidget {
               padding:
                   EdgeInsets.only(top: 30, bottom: 30, left: 30, right: 30),
             )),
-        Row(children: <Widget>[
+
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+
+            children: <Widget>[
+
           Column(
             children: <Widget>[
+              Text(
+                'Feeds',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
               Card(
                   elevation: 8,
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
+
                   child: HomeScreen())
             ],
           ),
+
           Column(children: <Widget>[
+            Text(
+              'Connect',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
             Card(
+
                 elevation: 8,
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
