@@ -61,7 +61,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   Widget BuildWidget() {
     if (_screenIndex == 0) return CameraScreen(camera: widget.camera);
-    if (_screenIndex == 1) return HomeScreenUI();
+    if (_screenIndex == 1) return HomeScreenUI(widget.auth);
     if (_screenIndex == 2) return WebsiteScreen();
   }
 

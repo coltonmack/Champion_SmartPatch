@@ -68,6 +68,7 @@ class CameraScreenState extends State<CameraScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera_alt),
+        backgroundColor: Color.fromARGB(150, 1, 20, 122),
         // Provide an onPressed callback.
         onPressed: () async {
           // Take the Picture in a try / catch block. If anything goes wrong,
@@ -114,7 +115,9 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('SmartCapture')),
+      appBar: AppBar(
+          title: Text('SmartCapture'),
+          backgroundColor: Color.fromARGB(150, 1, 20, 122)),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Stack(alignment: Alignment.center, children: <Widget>[
@@ -148,24 +151,35 @@ class FirebaseResultsState extends State<FirebaseResults> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 8,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: isImageLoaded
-            ? Container(
-                child: readTextResults
-                    ? Image.asset(
-                        'assets/green_check.png',
-                        width: 100,
-                        height: 100,
-                      )
-                    : Image.asset(
-                        'assets/red_x.png',
-                        width: 100,
-                        height: 100,
-                      ))
-            : SpinKitFadingCircle(color: Colors.black, size: 100));
+    return isImageLoaded
+        ? Container(
+            child: readTextResults
+                ? Column(children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: 0, bottom: 15, left: 0, right: 0),
+                        child: Card(
+                            elevation: 8,
+                            color: Colors.white,
+                            child: Text("Promo: 10% off",
+                                style: TextStyle(fontSize: 32)))),
+                    Image.asset(
+                      'assets/green_check.png',
+                      width: 100,
+                      height: 100,
+                    )
+                  ])
+                : Image.asset(
+                    'assets/red_x.png',
+                    width: 100,
+                    height: 100,
+                  ))
+        : Card(
+            elevation: 8,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            child: SpinKitFadingCircle(color: Colors.black, size: 100));
   }
 
   Future readImage() async {

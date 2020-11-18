@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_patch/firebase_services.dart';
 import 'loads_tweets.dart';
 
 class HomeScreen extends StatefulWidget {
+  FirebaseAuth auth;
+
+  HomeScreen(this.auth);
+
   @override
   HomeScreenState createState() => HomeScreenState();
 }
@@ -17,7 +21,7 @@ class HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LoadTweets("Champion", "Champion.png"),
+                  builder: (context) => LoadTweets(true, widget.auth),
                 ),
               );
             },
@@ -32,7 +36,7 @@ class HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LoadTweets("SmartPatch", "hashtag.jpg"),
+                  builder: (context) => LoadTweets(false, widget.auth),
                 ),
               );
             },

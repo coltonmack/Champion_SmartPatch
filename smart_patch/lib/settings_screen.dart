@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PreferencesScreen extends StatefulWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -20,12 +21,15 @@ class PreferencesScreen extends StatefulWidget {
 }
 
 class _PreferencesScreenState extends State<PreferencesScreen> {
+  bool areSettingsLoaded = false;
+
   void loadUserSettings() async {
     widget.userId = widget.auth.currentUser.uid.toString();
     var userRef = await widget.db.collection('Users').doc(widget.userId);
     userRef.get().then((snapshot) {
       Map<dynamic, dynamic> userData = snapshot.data();
       setState(() {
+        areSettingsLoaded = true;
         widget._controller.text = userData["Hashtags"];
         widget.inputText = widget._controller.text;
         widget.interestSports = userData["Sports"];
@@ -149,6 +153,9 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                             });
                           },
                         ))),
+                !areSettingsLoaded
+                    ? SpinKitFadingCircle(color: Colors.white, size: 100)
+                    : SizedBox.shrink()
               ],
             ),
           ),

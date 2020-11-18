@@ -12,8 +12,13 @@ class GetPromo extends StatelessWidget {
         child: StreamBuilder(
       stream: databaseReference.collection('Promos').snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return Text('Loading...', style: TextStyle(color: Colors.white));
-        return Text(snapshot.data.documents[0]['promo1'].toString(), style: TextStyle(color: Colors.white));
+        return (!snapshot.hasData || snapshot.data.documents.isEmpty)
+            ? Center(
+                child:
+                    Text('Loading...', style: TextStyle(color: Colors.white)))
+            : Center(
+                child: Text(snapshot.data.documents[0]['promo1'].toString(),
+                    style: TextStyle(color: Colors.white)));
       },
     ));
   }

@@ -5,7 +5,9 @@ import 'main_application.dart';
 
 class LoginScreen extends StatefulWidget {
   var camera;
+
   LoginScreen(this.camera);
+
   LoginScreenState createState() => LoginScreenState();
 }
 
@@ -42,15 +44,14 @@ class LoginScreenState extends State<LoginScreen> {
       return;
     } else {
       try {
-        UserCredential userCredential = await auth
-            .signInWithEmailAndPassword(
-                email: usernameController.text,
-                password: passwordController.text);
+        renderLoadingDialog(context);
+        UserCredential userCredential = await auth.signInWithEmailAndPassword(
+            email: usernameController.text, password: passwordController.text);
+        Navigator.of(context, rootNavigator: true).pop();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'invalid-email') {
           notifyBadLogin(context, 0);
-        }
-        else if (e.code == 'user-not-found') {
+        } else if (e.code == 'user-not-found') {
           notifyBadLogin(context, 2);
         } else if (e.code == 'wrong-password') {
           notifyBadLogin(context, 3);
@@ -59,10 +60,33 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Widget renderLoadingDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+              backgroundColor: Colors.black54,
+              children: <Widget>[
+                Center(
+                  child: Column(children: [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Please Wait....",
+                      style: TextStyle(color: Colors.blueAccent),
+                    )
+                  ]),
+                )
+              ]);
+        });
+  }
+
   Widget getDismiss(BuildContext context) {
     return FlatButton(
         onPressed: () {
-         Navigator.of(context, rootNavigator: true).pop();
+          Navigator.of(context, rootNavigator: true).pop();
         },
         child: Text("Dismiss"));
   }
@@ -85,8 +109,6 @@ class LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  void TransferToSignUp() {}
-
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -103,7 +125,9 @@ class LoginScreenState extends State<LoginScreen> {
           title: 'Champion SmartPatch',
           home: Scaffold(
               backgroundColor: Color.fromARGB(150, 1, 20, 122),
-              appBar: AppBar(title: Text("Sign In"),  backgroundColor: Color.fromARGB(150, 1, 20, 122)),
+              appBar: AppBar(
+                  title: Text("Sign In"),
+                  backgroundColor: Color.fromARGB(150, 1, 20, 122)),
               body: Builder(
                 builder: (context) => ListView(children: <Widget>[
                   Padding(
